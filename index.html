@@ -13,15 +13,5 @@
             FactoryGame.constant('constants.Firebase', Firebase);
             FactoryGame.constant('constants.FirebaseLogin', FirebaseSimpleLogin);
         </script>
-        <script type="text/javascript" >
-            FactoryGame.controller('SignInController', [
-                '$scope', 'FirebaseAuth',
-                function($scope, auth) {
-                    $scope.signIn = function(provider) {
-                        auth.login(provider);
-                    };    
-                }
-            ]); 
-        </script>
     </body>
 </html>

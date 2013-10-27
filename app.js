@@ -22,3 +22,11 @@ FactoryGame.factory('FirebaseAuth', [
     }
 ]); 
 
+FactoryGame.controller('SignInController', [
+    '$scope', 'FirebaseAuth',
+    function($scope, auth) {
+        $scope.signIn = function(provider) {
+            auth.login(provider);
+        };    
+    }
+]); 
