@@ -4,6 +4,7 @@ module.exports = function(config) {
         browsers: ['Chrome'],
         files: [
             'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js',
+            'lib/angular-mocks.js',
             'app.js',
             'tests.js'
         ],
