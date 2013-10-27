@@ -28,5 +28,8 @@ FactoryGame.controller('SignInController', [
         $scope.signIn = function(provider) {
             auth.login(provider);
         };    
+        $scope.signOut = function() {
+            auth.logout();
+        };
     }
 ]); 
