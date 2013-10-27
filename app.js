@@ -22,6 +22,16 @@ FactoryGame.factory('FirebaseAuth', [
     }
 ]); 
 
+FactoryGame.factory('FirebaseUser', [
+    function() {
+        var user;
+        return function(u) {
+            if(u) user = u;
+            else return user;
+        };
+    }
+]);
+
 FactoryGame.controller('SignInController', [
     '$scope', 'FirebaseAuth',
     function($scope, auth) {
