@@ -3,7 +3,7 @@
         <title>Agile Factory Game</title>
     </head>
     <body ng-controller="SignInController">
-        <button>Sign In</button>
+        <button ng-click="signIn('facebook')">Sign In</button>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
         <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
         <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
@@ -15,8 +15,11 @@
         </script>
         <script type="text/javascript" >
             FactoryGame.controller('SignInController', [
-                'FirebaseAuth',
-                function(auth) {
+                '$scope', 'FirebaseAuth',
+                function($scope, auth) {
+                    $scope.signIn = function(provider) {
+                        auth.login(provider);
+                    };    
                 }
             ]); 
         </script>
