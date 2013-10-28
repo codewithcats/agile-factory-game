@@ -27,18 +27,25 @@ FactoryGame.factory('User', [
     function() {
         var user,
         callbacks = [],
+        executeOnChangeCallbacks = function() {
+            _.each(callbacks, function(c) {
+                c(user);
+            });
+        },
         fn = function(u) {
             if(u) {
                 user = u;
-                _.each(callbacks, function(c) {
-                    c(user);
-                });
+                executeOnChangeCallbacks();
             } else {
                 return user;
             }
         };
         fn.onChange = function(c) {
             c && callbacks.push(c);
+        };
+        fn.clear = function() {
+            user = undefined;
+            executeOnChangeCallbacks();
         };
         return fn;
     }

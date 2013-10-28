@@ -39,4 +39,27 @@ describe('User', function() {
             callback2.verify();
         });
     });
+
+    describe('clear()', function() {
+        it('should clear user', function() {
+            User('user');
+            User.clear();
+            expect(User()).toBeUndefined();
+        });
+        it('should trigger onChange() callbacks', function() {
+            var callback1 = sinon.expectation.create('callback:1'),
+            callback2 = sinon.expectation.create('callback:2');
+
+            callback1.once();
+            callback2.once();            
+
+            User('user');
+            User.onChange(callback1);
+            User.onChange(callback2);
+            User.clear();
+
+            callback1.verify();
+            callback2.verify();
+        });
+    });
 });
