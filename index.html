@@ -3,8 +3,9 @@
         <title>Agile Factory Game</title>
     </head>
     <body ng-controller="SignInController">
-        <button ng-click="signIn('facebook')">Sign In</button>
+        <button ng-click="signIn('facebook')" ng-hide="user">Sign In</button>
         <button ng-click="signOut()">Sign Out</button>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
         <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
         <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
