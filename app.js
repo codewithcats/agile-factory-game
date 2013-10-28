@@ -17,6 +17,7 @@ FactoryGame.factory('FirebaseAuth', [
                 user(u);
                 console.info(user());
             } else {
+                user.clear();
                 console.info('No user in this client.');
             }
         });
