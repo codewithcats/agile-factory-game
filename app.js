@@ -8,13 +8,14 @@ FactoryGame.factory('FirebaseApp', [
 ]);
 
 FactoryGame.factory('FirebaseAuth', [
-    'constants.FirebaseLogin', 'FirebaseApp',
-    function(FirebaseLogin, app) {
-        return new FirebaseLogin(app, function(error, user) {
+    'constants.FirebaseLogin', 'FirebaseApp', 'FirebaseUser',
+    function(FirebaseLogin, app, user) {
+        return new FirebaseLogin(app, function(error, u) {
             if(error) {
                 console.error('An error occurred while attempting login', error);
-            } else if(user) {
-                console.info('User ID: ' + user.id + ', Provider: ' + user.provider);
+            } else if(u) {
+                user(u);
+                console.info(user());
             } else {
                 console.info('No user in this client.');
             }
@@ -24,22 +25,34 @@ FactoryGame.factory('FirebaseAuth', [
 
 FactoryGame.factory('FirebaseUser', [
     function() {
-        var user;
-        return function(u) {
-            if(u) user = u;
-            else return user;
+        var user,
+        callbacks = [],
+        fn = function(u) {
+            if(u) {
+                user = u;
+                _.each(callbacks, function(c) {
+                    c(user);
+                });
+            } else {
+                return user;
+            }
         };
+        fn.onChange = function(c) {
+            c && callbacks.push(c);
+        };
+        return fn;
     }
 ]);
 
 FactoryGame.controller('SignInController', [
-    '$scope', 'FirebaseAuth',
-    function($scope, auth) {
+    '$scope', 'FirebaseAuth', 'FirebaseUser',
+    function($scope, auth, user) {
         $scope.signIn = function(provider) {
             auth.login(provider);
         };    
         $scope.signOut = function() {
             auth.logout();
         };
+        $scope.user = user();
     }
 ]); 
