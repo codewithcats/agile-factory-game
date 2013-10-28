@@ -8,7 +8,7 @@ FactoryGame.factory('FirebaseApp', [
 ]);
 
 FactoryGame.factory('FirebaseAuth', [
-    'constants.FirebaseLogin', 'FirebaseApp', 'FirebaseUser',
+    'constants.FirebaseLogin', 'FirebaseApp', 'User',
     function(FirebaseLogin, app, user) {
         return new FirebaseLogin(app, function(error, u) {
             if(error) {
@@ -53,6 +53,10 @@ FactoryGame.controller('SignInController', [
         $scope.signOut = function() {
             auth.logout();
         };
-        $scope.user = user();
+        user.onChange(function() {
+            $scope.$apply(function() {
+                $scope.user = user();
+            });
+        });
     }
 ]); 
